@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magazine.mapper.UserMapper">
+    <resultMap id="Base_ResultMap" type="com.magazine.domain.UserEntity">
+        <id column="id" property="id"/>
+        <result column="openid" property="openid"/>
+        <result column="name" property="name"/>
+        <result column="head_img" property="headImg"/>
+        <result column="phone" property="phone"/>
+        <result column="sign" property="sign"/>
+        <result column="sex" property="sex"/>
+        <result column="city" property="city"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,openid,name,head_img,phone,sign,sex,city,create_time
+    </sql>
+
+    <!-- 查询一条数据 -->
+    <select id="queryOne" resultMap="Base_ResultMap">
+        select
+        *
+        from `user`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="openid != null and openid != ''">
+                `openid` = #{openid} and
+            </if>
+            <if test="name != null and name != ''">
+                `name` = #{name} and
+            </if>
+            <if test="phone != null and phone!=''">
+                `phone` = #{phone} and
+            </if>
+            <if test="sign != null and sign!=''">
+                `sign` = #{sign} and
+            </if>
+            <if test="sex != null">
+                `sex` = #{sex} and
+            </if>
+            <if test="city != null and city!=''">
+                `city` = #{city} and
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <select id="queryByOpenId" resultMap="Base_ResultMap">
+        select
+        *
+        from `user`
+        where openid = #{openid}
+    </select>
+
+    <update id="updateOne">
+        UPDATE `user`
+        SET
+        <trim suffixOverrides=",">
+            <if test="openid != null and openid != null">
+                `openid` = #{openid},
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name},
+            </if>
+            <if test="headImg != null and headImg!=''">
+                `head_img` = #{headImg},
+            </if>
+            <if test="phone != null and phone!=''">
+                `phone` = #{phone},
+            </if>
+            <if test="sign != null and sign!=''">
+                `sign` = #{sign},
+            </if>
+            <if test="sex != null">
+                `sex` = #{sex},
+            </if>
+            <if test="city != null and city != ''">
+                `city` = #{city},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user`
+        (
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="openid != null and openid != ''">
+                `openid`,
+            </if>
+            <if test="name != null and name != ''">
+                `name`,
+            </if>
+            <if test="headImg !=null and headImg != ''">
+                `head_img`,
+            </if>
+            <if test="phone!=null and phone != ''">
+                `phone`,
+            </if>
+            <if test="sign != null and sign != ''">
+                `sign`,
+            </if>
+            <if test="sex != null">
+                `sex`,
+            </if>
+            <if test="city != null and city != ''">
+                `city`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="openid != null and openid != ''">
+                #{openid},
+            </if>
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="headImg != null and headImg != ''">
+                #{headImg},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone},
+            </if>
+            <if test="sign != null and sign != ''">
+                #{sign},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="city != null and city != ''">
+                #{city},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+        )
+    </insert>
+
+</mapper>

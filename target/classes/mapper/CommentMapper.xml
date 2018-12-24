@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magazine.mapper.CommentMapper">
+    <resultMap id="Base_ResultMap" type="com.magazine.domain.CommentEntity">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="head_img" property="headImg"/>
+        <result column="name" property="name"/>
+        <result column="point" property="point"/>
+        <result column="up" property="up"/>
+        <result column="create_time" property="createTime"/>
+        <result column="order_id" property="orderId"/>
+        <result column="video_id" property="video_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,content,user_id,head_img,name,point,up,create_time,order_id,video_id
+    </sql>
+
+    <!-- 查询一条数据 -->
+    <select id="queryOne" resultMap="Base_ResultMap">
+        select
+        *
+        from `comment`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="content != null and content != ''">
+                `content` = #{content} and
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId} and
+            </if>
+            <if test="headImg != null and headImg !=''">
+                `head_img` = #{headImg} and
+            </if>
+            <if test="name != null and name !=''">
+                `name` = #{name} and
+            </if>
+            <if test="up != null">
+                `up` = #{up} and
+            </if>
+            <if test="orderId != null">
+                `order_id` = #{orderId} and
+            </if>
+            <if test="videoId != null">
+                `video_id` = #{videoId} and
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <update id="updateOne">
+        UPDATE `comment`
+        SET
+        <trim suffixOverrides=",">
+            <if test="content != null and content != null">
+                `content` = #{content},
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId},
+            </if>
+            <if test="headImg != null and headImg !=''">
+                `head_img` = #{headImg},
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name},
+            </if>
+            <if test="point != null">
+                `point` = #{point},
+            </if>
+            <if test="up != null">
+                `up` = #{up},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="orderId != null">
+                `order_id` = #{orderId},
+            </if>
+            <if test="videoId != null">
+                `video_id` = #{videoId},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `comment`
+        (
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="content != null and content != ''">
+                `content`,
+            </if>
+            <if test="userId != null">
+                `user_id`,
+            </if>
+            <if test="headImg != null and headImg != ''">
+                `head_img`,
+            </if>
+            <if test="name!=null and name != ''">
+                `name`,
+            </if>
+            <if test="point != null">
+                `point`,
+            </if>
+            <if test="up != null">
+                `up`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+            <if test="orderId != null">
+                `order_id`,
+            </if>
+            <if test="videoId != null">
+                `video_id`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="content != null and content != ''">
+                #{content},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="headImg != null and headImg != ''">
+                #{headImg},
+            </if>
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="point != null">
+                #{point},
+            </if>
+            <if test="up != null">
+                #{up},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="orderId != null">
+                #{orderId},
+            </if>
+            <if test="videoId != null">
+                #{videoId},
+            </if>
+        </trim>
+        )
+    </insert>
+
+</mapper>
