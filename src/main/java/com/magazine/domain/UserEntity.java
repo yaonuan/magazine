@@ -7,6 +7,7 @@ import java.io.Serializable;
  * 用户entity
  * @Author : yaonuan
  * @Email : 806039077@qq.com
+ * @Date : 2018-12-23
  */
 
 public class UserEntity implements Serializable {

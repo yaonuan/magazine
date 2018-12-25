@@ -4,7 +4,10 @@ package com.magazine.domain;
 import java.io.Serializable;
 
 /**
- * 评论实体类
+ * 评论实体类entity
+ * @Author : yaonuan
+ * @Email : 806039077@qq.com
+ * @Date : 2018-12-25
  */
 public class CommentEntity implements Serializable {
 
