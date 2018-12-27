@@ -1,6 +1,10 @@
 package com.magazine.domain;
 
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -9,12 +13,14 @@ import java.util.Date;
  * @Email : 806039077@qq.com
  * @Date : 2018-12-25
  */
+@TableName("journal_order")
 public class JournalOrderEntity implements Serializable {
 
   private static final long serialVersionUID =1L;
   /**
    * id
    */
+  @TableId
   private Integer id;
   /**
    * openid备用
@@ -27,6 +33,7 @@ public class JournalOrderEntity implements Serializable {
   /**
    * 订单生成时间
    */
+  @JsonIgnore
   private Date createTime;
   /**
    * 支付金额，单位分

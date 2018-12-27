@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magazine.mapper.JournalMapper">
+    <resultMap id="Base_ResultMap" type="com.magazine.domain.JournalEntity">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="summary" property="summary"/>
+        <result column="cover_img" property="coverImg"/>
+        <result column="view_num" property="viewNum"/>
+        <result column="price" property="price"/>
+        <result column="create_time" property="createTime"/>
+        <result column="online" property="online"/>
+        <result column="point" property="point"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,summary,cover_img,view_num,price,create_time,online,point
+    </sql>
+
+</mapper>
