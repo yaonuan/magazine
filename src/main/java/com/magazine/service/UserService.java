@@ -1,17 +1,23 @@
 package com.magazine.service;
 
+import com.baomidou.mybatisplus.service.IService;
 import com.magazine.domain.UserEntity;
 
 /**
- * user业务接口类
+ * 用户相关
+ *
+ * @Author : yaonuan
+ * @Email : 806039077@qq.com
+ * @Date : 2018-12-27
  */
-public interface UserService {
+public interface UserService extends IService<UserEntity> {
 
-    UserEntity queryOne(UserEntity userEntity);
-
-    int insertOne(UserEntity userEntity);
-
-    int updateOne(UserEntity userEntity);
+    /**
+     * 根据用户名查询
+     * @param name
+     * @return
+     */
+    UserEntity queryByUserName(String name);
 
 
 }

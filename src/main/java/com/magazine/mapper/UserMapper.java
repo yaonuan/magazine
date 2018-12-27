@@ -1,5 +1,6 @@
 package com.magazine.mapper;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.magazine.domain.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,22 +13,8 @@ import org.apache.ibatis.annotations.Param;
  * @Date : 2018-10-16
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<UserEntity> {
 
-
-    /**
-     * 自定义查询一个
-     * @param userEntity
-     * @return
-     */
-    UserEntity queryOne(UserEntity userEntity);
-
-    /**
-     * 根据openid查询
-     * @param openid
-     * @return
-     */
-    UserEntity queryByOpenId(@Param("openid") String openid);
 
     /**
      * 新增
@@ -42,5 +29,12 @@ public interface UserMapper {
      * @return
      */
     int updateOne(UserEntity userEntity);
+
+    /**
+     * 根据用户名，查询系统用户
+     * @param name
+     * @return
+     */
+    UserEntity queryByUserName(@Param("name") String name);
 
 }

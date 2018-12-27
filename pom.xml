@@ -29,6 +29,8 @@
         <commons.configuration.version>1.10</commons.configuration.version>
         <mybatisplus.spring.boot.version>1.0.5</mybatisplus.spring.boot.version>
         <mybatisplus.version>2.1.9</mybatisplus.version>
+        <kaptcha.version>0.0.9</kaptcha.version>
+        <joda.time.version>2.9.9</joda.time.version>
     </properties>
 
     <dependencies>
@@ -184,6 +186,17 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.axet</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
         </dependency>
 
     </dependencies>

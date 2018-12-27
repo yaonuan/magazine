@@ -15,4 +15,11 @@ public interface JournalService extends IService<JournalEntity> {
      * @return
      */
     PageUtils queryTerm(Map<String,Object> params);
+
+    /**
+     * 测试
+     * @param title
+     * @return
+     */
+    JournalEntity queryByTitle(String title);
 }

@@ -1,5 +1,6 @@
 package com.magazine.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.magazine.domain.UserEntity;
 import com.magazine.mapper.UserMapper;
 import com.magazine.service.UserService;
@@ -19,25 +20,14 @@ import java.util.Map;
  * @Date : 2018-10-19
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper,UserEntity> implements UserService {
 
     @Autowired
     UserMapper userMapper;
 
-
     @Override
-    public UserEntity queryOne(UserEntity userEntity){
-        return  userMapper.queryOne(userEntity);
-    }
-
-    @Override
-    public int insertOne(UserEntity userEntity){
-        return userMapper.insertOne(userEntity);
-    }
-
-    @Override
-    public int updateOne(UserEntity userEntity){
-        return  userMapper.updateOne(userEntity);
+    public UserEntity queryByUserName(String name) {
+        return userMapper.queryByUserName(name);
     }
 
 }
