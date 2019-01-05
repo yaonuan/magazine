@@ -35,7 +35,7 @@ public class JwtUtils {
         }else {
             String token = Jwts.builder().setSubject(SUBJECT).claim("id",user.getId())
                     .claim("name",user.getName())
-                    .claim("img", user.getHeadImg())
+//                    .claim("img", user.getHeadImg())
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis()+ EXPIRE))
                     .signWith(SignatureAlgorithm.HS256, APPSECRET).compact();

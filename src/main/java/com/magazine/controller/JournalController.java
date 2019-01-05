@@ -9,7 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -47,6 +50,13 @@ public class JournalController {
     public R page(@RequestParam Map<String,Object> params){
         PageUtils page = journalService.queryTerm(params);
         return R.ok().put("data", page);
+    }
+
+    @PostMapping("/save")
+    public R save(HttpServletRequest request, @RequestBody JournalEntity journalEntity, MultipartFile file){
+        journalEntity.setCreateTime(new Date());
+
+        return R.ok();
     }
 
 }

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,7 +21,7 @@ public class UserEntity implements Serializable {
    * id
    */
   @TableId
-  private Integer id;
+  private Long id;
   /**
    * 备用
    */
@@ -61,15 +60,13 @@ public class UserEntity implements Serializable {
   @JsonIgnore
   private Date createTime;
 
-
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
-
 
   public String getOpenid() {
     return openid;

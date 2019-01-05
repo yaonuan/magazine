@@ -33,9 +33,9 @@ public class LoginControllerTest {
     public void login() {
         LoginForm form = new LoginForm();
         form.setUuid("941844e5-e431-4f18-8912-0524638222d4");
-        form.setUsername("xiaomo");
+        form.setUsername("admin");
         form.setPassword("admin");
-        form.setCaptcha("2ywdw");
+        form.setCaptcha("x8mw3");
 
 
         boolean captcha = captchaService.validate(form.getUuid(), form.getCaptcha());
@@ -52,7 +52,7 @@ public class LoginControllerTest {
         }
 
         // 生成token，并保存到数据库
-        R r = userTokenService.createToken(user.getId());
+        R r = userTokenService.createToken(user);
 
     }
 }

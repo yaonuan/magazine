@@ -6,7 +6,9 @@ import com.magazine.service.CaptchaService;
 import com.magazine.service.UserService;
 import com.magazine.service.UserTokenService;
 import com.magazine.utils.CommonUtils;
+import com.magazine.utils.JwtUtils;
 import com.magazine.utils.R;
+import io.jsonwebtoken.Claims;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -76,8 +79,33 @@ public class LoginController {
         }
 
         // 生成token，并保存到数据库
-        R r = userTokenService.createToken(user.getId());
+        R r = userTokenService.createToken(user);
         return r;
+    }
+
+
+    /**
+     * 退出
+     */
+    @PostMapping("/logout")
+    public R logout(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
+        String token = request.getHeader("token");
+        if (token == null){
+            token = request.getParameter("token");
+        }
+        if (token != null){
+            Claims claims =  JwtUtils.checkJWT(token);
+            if (claims != null){
+                Long userId = (Long) claims.get("id");
+                String name = (String) claims.get("name");
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(userId);
+                userEntity.setName(name);
+                userTokenService.logout(userEntity);
+            }
+        }
+        return R.ok();
     }
 
 }

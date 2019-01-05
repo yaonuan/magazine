@@ -1,10 +1,12 @@
 package com.magazine.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.magazine.domain.UserEntity;
 import com.magazine.domain.UserTokenEntity;
 import com.magazine.mapper.UserTokenMapper;
 import com.magazine.oauth2.TokenGenerator;
 import com.magazine.service.UserTokenService;
+import com.magazine.utils.JwtUtils;
 import com.magazine.utils.R;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +25,11 @@ public class UserTokenServiceImpl extends ServiceImpl<UserTokenMapper, UserToken
     private final static int EXPIRE = 3600 * 12;
 
     @Override
-    public R createToken(long userId) {
+    public R createToken(UserEntity userEntity) {
 
         //生成一个token
-        String token = TokenGenerator.generateValue();
+//        String token = TokenGenerator.generateValue();
+        String token = JwtUtils.geneJsonWebToken(userEntity);
 
         //当前时间
         Date now = new Date();
@@ -34,10 +37,10 @@ public class UserTokenServiceImpl extends ServiceImpl<UserTokenMapper, UserToken
         Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
 
         //判断是否生成过token
-        UserTokenEntity tokenEntity = this.selectById(userId);
+        UserTokenEntity tokenEntity = this.selectById(userEntity.getId());
         if(tokenEntity == null){
             tokenEntity = new UserTokenEntity();
-            tokenEntity.setUserId(userId);
+            tokenEntity.setUserId(userEntity.getId());
             tokenEntity.setToken(token);
             tokenEntity.setUpdateTime(now);
             tokenEntity.setExpireTime(expireTime);
@@ -59,13 +62,13 @@ public class UserTokenServiceImpl extends ServiceImpl<UserTokenMapper, UserToken
     }
 
     @Override
-    public void logout(long userId) {
+    public void logout(UserEntity userEntity) {
         //生成一个token
-        String token = TokenGenerator.generateValue();
+        String token = JwtUtils.geneJsonWebToken(userEntity);
 
         //修改token
         UserTokenEntity tokenEntity = new UserTokenEntity();
-        tokenEntity.setUserId(userId);
+        tokenEntity.setUserId(userEntity.getId());
         tokenEntity.setToken(token);
         this.updateById(tokenEntity);
     }

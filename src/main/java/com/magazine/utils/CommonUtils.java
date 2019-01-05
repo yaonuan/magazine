@@ -1,5 +1,11 @@
 package com.magazine.utils;
 
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -43,6 +49,28 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return  null;
+    }
+
+    /**
+     * 保存图片
+     * @param request
+     * @param pictureFile
+     * @return
+     * @throws IOException
+     */
+    public static String savePic(HttpServletRequest request, MultipartFile pictureFile) throws IOException {
+
+        //使用UUID给图片重命名，并去掉四个“-”
+        String name = UUID.randomUUID().toString().replaceAll("-", "");
+        //获取文件的扩展名
+        String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
+        //设置图片上传路径
+        String url = request.getSession().getServletContext().getRealPath("/upload");
+        //以绝对路径保存重名命后的图片
+        pictureFile.transferTo(new File(url+"/"+name+"."+ext));
+
+        //返回图片存储路径
+        return "upload/"+name+"."+ext;
     }
 
 }

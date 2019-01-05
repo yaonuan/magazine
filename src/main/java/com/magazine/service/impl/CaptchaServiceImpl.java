@@ -53,7 +53,8 @@ public class CaptchaServiceImpl extends ServiceImpl<CaptchaMapper, CaptchaEntity
         }
 
         // 删除验证码
-        this.deleteById(uuid);
+        // todo 正式环境去注释 this.deleteById(uuid);
+//        this.deleteById(uuid);
 
         return captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().getTime() >= System
                 .currentTimeMillis();
