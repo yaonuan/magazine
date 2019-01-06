@@ -1,7 +1,7 @@
 package com.magazine.controller;
 
+import com.magazine.domain.LoginForm;
 import com.magazine.domain.UserEntity;
-import com.magazine.form.LoginForm;
 import com.magazine.service.CaptchaService;
 import com.magazine.service.UserService;
 import com.magazine.service.UserTokenService;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -91,12 +90,12 @@ public class LoginController {
     public R logout(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         String token = request.getHeader("token");
-        if (token == null){
+        if (token == null) {
             token = request.getParameter("token");
         }
-        if (token != null){
-            Claims claims =  JwtUtils.checkJWT(token);
-            if (claims != null){
+        if (token != null) {
+            Claims claims = JwtUtils.checkJWT(token);
+            if (claims != null) {
                 Long userId = (Long) claims.get("id");
                 String name = (String) claims.get("name");
                 UserEntity userEntity = new UserEntity();

@@ -1,8 +1,8 @@
 package com.magazine.controller;
 
 import com.magazine.MagazineApplication;
+import com.magazine.domain.LoginForm;
 import com.magazine.domain.UserEntity;
-import com.magazine.form.LoginForm;
 import com.magazine.service.CaptchaService;
 import com.magazine.service.UserService;
 import com.magazine.service.UserTokenService;
@@ -13,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MagazineApplication.class)

@@ -21,14 +21,15 @@ import java.util.Map;
  * @Date : 2018-12-25
  */
 @Service
-public class JournalServiceImpl extends ServiceImpl<JournalMapper,JournalEntity> implements JournalService {
+public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity> implements JournalService {
 
     @Autowired
     JournalMapper journalMapper;
 
     @Override
     public PageUtils queryTerm(Map<String, Object> params) {
-        Page<JournalEntity> page = this.selectPage(new Query<JournalEntity>(params).getPage(),new EntityWrapper<JournalEntity>().orderBy("id",false));
+        Page<JournalEntity> page = this.selectPage(new Query<JournalEntity>(params).getPage(),
+                new EntityWrapper<JournalEntity>().eq("online", 0));
         return new PageUtils(page);
     }
 
