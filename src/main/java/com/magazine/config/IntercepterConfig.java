@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 拦截器配置
+ *
  * @Author : yaonuan
  * @Email : 806039077@qq.com
  * @Date : 2018/11/27 0027
