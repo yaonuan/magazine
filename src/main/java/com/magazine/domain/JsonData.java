@@ -1,5 +1,7 @@
 package com.magazine.domain;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
  * @Email : 806039077@qq.com
  * @Date : 2018-10-16
  */
+@Data
 public class JsonData implements Serializable {
 
     private static final long serialVersionUID =1L;

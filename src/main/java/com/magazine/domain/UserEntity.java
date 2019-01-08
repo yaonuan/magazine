@@ -4,6 +4,7 @@ package com.magazine.domain;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @Email : 806039077@qq.com
  * @Date : 2018-12-23
  */
+@Data
 @TableName("user")
 public class UserEntity implements Serializable {
 
@@ -59,93 +61,5 @@ public class UserEntity implements Serializable {
    */
   @JsonIgnore
   private Date createTime;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getOpenid() {
-    return openid;
-  }
-
-  public void setOpenid(String openid) {
-    this.openid = openid;
-  }
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-
-  public String getHeadImg() {
-    return headImg;
-  }
-
-  public void setHeadImg(String headImg) {
-    this.headImg = headImg;
-  }
-
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-
-  public String getSign() {
-    return sign;
-  }
-
-  public void setSign(String sign) {
-    this.sign = sign;
-  }
-
-
-  public Integer getSex() {
-    return sex;
-  }
-
-  public void setSex(Integer sex) {
-    this.sex = sex;
-  }
-
-
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-
-  public java.util.Date getCreateTime() {
-    return createTime;
-  }
-
-  public void setCreateTime(java.util.Date createTime) {
-    this.createTime = createTime;
-  }
 
 }

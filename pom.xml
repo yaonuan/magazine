@@ -31,6 +31,7 @@
         <mybatisplus.version>2.1.9</mybatisplus.version>
         <kaptcha.version>0.0.9</kaptcha.version>
         <joda.time.version>2.9.9</joda.time.version>
+        <lombok-version>1.18.2</lombok-version>
     </properties>
 
     <dependencies>
@@ -205,6 +206,15 @@
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>3.1.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
 
 
     </dependencies>

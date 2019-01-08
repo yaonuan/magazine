@@ -1,6 +1,5 @@
 package com.magazine.service;
 
-import com.alibaba.druid.sql.PagerUtils;
 import com.baomidou.mybatisplus.service.IService;
 import com.magazine.domain.JournalEntity;
 import com.magazine.utils.PageUtils;
@@ -11,15 +10,25 @@ public interface JournalService extends IService<JournalEntity> {
 
     /**
      * 分页查询
+     *
      * @param params
      * @return
      */
-    PageUtils queryTerm(Map<String,Object> params);
+    PageUtils queryTerm(Map<String, Object> params);
 
     /**
      * 测试
+     *
      * @param title
      * @return
      */
     JournalEntity queryByTitle(String title);
+
+    /**
+     * 保存
+     *
+     * @param journalEntity
+     * @return
+     */
+    Boolean save(JournalEntity journalEntity);
 }

@@ -1,6 +1,5 @@
 package com.magazine.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.magazine.domain.JournalEntity;
 import com.magazine.service.JournalService;
 import com.magazine.utils.PageUtils;
@@ -9,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,31 +26,39 @@ public class JournalController {
     JournalService journalService;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /**
      * 根据id查询杂志信息
+     *
      * @param id
      * @return
      */
     @GetMapping("/query_id/{id}")
-    public R queryById(@PathVariable Integer id){
-        JournalEntity journalEntity =  journalService.selectById(id);
+    public R queryById(@PathVariable Integer id) {
+        JournalEntity journalEntity = journalService.selectById(id);
         return R.ok().put("data", journalEntity);
     }
 
     /**
      * 分页
+     *
      * @param params
      * @return
      */
     @GetMapping("/page")
-    public R page(@RequestParam Map<String,Object> params){
+    public R page(@RequestParam Map<String, Object> params) {
         PageUtils page = journalService.queryTerm(params);
         return R.ok().put("data", page);
     }
 
+    /**
+     * 保存杂志信息
+     *
+     * @param journalEntity
+     * @return
+     */
     @PostMapping("/save")
-    public R save(HttpServletRequest request, @RequestBody JournalEntity journalEntity, MultipartFile file){
-        journalEntity.setCreateTime(new Date());
+    public R save(@RequestBody JournalEntity journalEntity) {
 
         return R.ok();
     }

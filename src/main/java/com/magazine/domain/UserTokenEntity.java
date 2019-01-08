@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * 系统用户Token
+ *
  * @Author : yaonuan
  * @Email : 806039077@qq.com
  * @Date : 2018-12-27
@@ -36,13 +37,6 @@ public class UserTokenEntity implements Serializable {
     private Date updateTime;
 
     /**
-     * 设置：用户ID
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    /**
      * 获取：用户ID
      */
     public Long getUserId() {
@@ -50,10 +44,10 @@ public class UserTokenEntity implements Serializable {
     }
 
     /**
-     * 设置：token
+     * 设置：用户ID
      */
-    public void setToken(String token) {
-        this.token = token;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
@@ -64,10 +58,10 @@ public class UserTokenEntity implements Serializable {
     }
 
     /**
-     * 设置：过期时间
+     * 设置：token
      */
-    public void setExpireTime(Date expireTime) {
-        this.expireTime = expireTime;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**
@@ -78,10 +72,10 @@ public class UserTokenEntity implements Serializable {
     }
 
     /**
-     * 设置：更新时间
+     * 设置：过期时间
      */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     /**
@@ -89,6 +83,13 @@ public class UserTokenEntity implements Serializable {
      */
     public Date getUpdateTime() {
         return updateTime;
+    }
+
+    /**
+     * 设置：更新时间
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
 }

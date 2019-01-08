@@ -20,30 +20,4 @@ import java.io.FileOutputStream;
 @RestController
 public class TestController {
 
-
-    @Autowired
-    AliyunOSSUtil aliyunOSSUtil;
-
-    @RequestMapping("/test")
-    public String saveFile(@RequestParam("file") MultipartFile file) {
-        String uploadUrl = "";
-        String filename = file.getOriginalFilename();
-        System.out.println(filename);
-        try {
-            if (file != null) {
-                if (!"".equals(filename.trim())) {
-                    File newFile = new File(filename);
-                    FileOutputStream os = new FileOutputStream(newFile);
-                    os.write(file.getBytes());
-                    os.close();
-                    file.transferTo(newFile);
-                    uploadUrl = aliyunOSSUtil.upLoad(newFile);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return uploadUrl;
-    }
-
 }

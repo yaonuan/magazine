@@ -37,4 +37,10 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
     public JournalEntity queryByTitle(String title) {
         return journalMapper.queryByTitle(title);
     }
+
+    @Override
+    public Boolean save(JournalEntity journalEntity) {
+
+        return null;
+    }
 }
