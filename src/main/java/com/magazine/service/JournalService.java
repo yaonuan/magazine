@@ -5,6 +5,7 @@ import com.magazine.domain.JournalEntity;
 import com.magazine.utils.PageUtils;
 
 import java.util.Map;
+import java.util.Set;
 
 public interface JournalService extends IService<JournalEntity> {
 
@@ -39,4 +40,20 @@ public interface JournalService extends IService<JournalEntity> {
      * @return
      */
     Boolean setOnline(Long id);
+
+    /**
+     * 单独删除
+     *
+     * @param id
+     * @return
+     */
+    Boolean deleteById(Long id);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    Boolean deleteByIds(Set<Long> ids);
+
 }

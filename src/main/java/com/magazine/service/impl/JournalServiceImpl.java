@@ -3,6 +3,7 @@ package com.magazine.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.magazine.constant.MagazineConstant;
 import com.magazine.domain.JournalEntity;
 import com.magazine.mapper.JournalMapper;
 import com.magazine.service.JournalService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 杂志实现类
@@ -47,8 +49,28 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
 
     @Override
     public Boolean setOnline(Long id) {
+        JournalEntity entity = new JournalEntity();
+        entity.setId(id);
+        if (MagazineConstant.FALSE.equals(this.selectById(id).getOnline())){
+            entity.setOnline(MagazineConstant.TRUE);
+        }else {
+            entity.setOnline(MagazineConstant.FALSE);
+        }
+        return this.updateById(entity);
+    }
 
+    @Override
+    public Boolean deleteById(Long id) {
+        JournalEntity entity = new JournalEntity();
+        entity.setId(id);
+        entity.setIsDeleted(MagazineConstant.TRUE);
+        return this.updateById(entity);
+    }
 
-        return null;
+    @Override
+    public Boolean deleteByIds(Set<Long> ids) {
+        JournalEntity entity = new JournalEntity();
+        entity.setIsDeleted(MagazineConstant.TRUE);
+        return this.update(entity, new EntityWrapper<JournalEntity>().in("id", ids));
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 杂志控制层
@@ -85,6 +86,30 @@ public class JournalController {
     @GetMapping("set_online")
     public R setOnline(@RequestParam Long id) {
         service.setOnline(id);
+        return R.ok();
+    }
+
+    /**
+     * 单独删除
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping("/delete/{id}")
+    public R delete(@PathVariable("id") Long id) {
+        service.deleteById(id);
+        return R.ok();
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    @PostMapping("/ids")
+    public R deleteByIds(@RequestBody Set<Long> ids) {
+        service.deleteByIds(ids);
         return R.ok();
     }
 

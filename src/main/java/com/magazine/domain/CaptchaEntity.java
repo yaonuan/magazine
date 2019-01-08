@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Data
 @TableName("captcha")
-public class CaptchaEntity  {
+public class CaptchaEntity {
     @TableId(type = IdType.INPUT)
     private String uuid;
     /**

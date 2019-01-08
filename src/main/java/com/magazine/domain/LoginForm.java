@@ -7,7 +7,7 @@ import lombok.Data;
  *
  * @Author : yaonuan
  * @Email : 806039077@qq.com
- * @Date : 2019-1-6 
+ * @Date : 2019-1-6
  */
 @Data
 public class LoginForm {
