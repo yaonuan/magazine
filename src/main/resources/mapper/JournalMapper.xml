@@ -17,7 +17,4 @@
         id,title,summary,cover_img,view_num,price,create_time,online,point
     </sql>
 
-    <select id="queryByTitle" parameterType="java.lang.String" resultMap="Base_ResultMap">
-        select * from journal where title = #{title}
-    </select>
 </mapper>

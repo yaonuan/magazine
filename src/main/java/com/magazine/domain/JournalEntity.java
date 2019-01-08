@@ -23,7 +23,7 @@ public class JournalEntity implements Serializable {
    * id
    */
   @TableId
-  private Integer id;
+  private Long id;
   /**
    * 标题
    */

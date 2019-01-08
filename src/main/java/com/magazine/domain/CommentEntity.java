@@ -4,6 +4,7 @@ package com.magazine.domain;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 评论实体类entity
@@ -14,15 +15,15 @@ import java.io.Serializable;
 @Data
 public class CommentEntity implements Serializable {
 
-  private Integer id;
+  private Long id;
   private String content;
-  private Integer userId;
+  private Long userId;
   private String headImg;
   private String name;
   private double point;
   private Integer up;
-  private java.util.Date createTime;
-  private Integer orderId;
-  private Integer videoId;
+  private Date createTime;
+  private Long orderId;
+  private Long videoId;
 
 }

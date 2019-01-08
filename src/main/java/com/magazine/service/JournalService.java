@@ -14,21 +14,29 @@ public interface JournalService extends IService<JournalEntity> {
      * @param params
      * @return
      */
-    PageUtils queryTerm(Map<String, Object> params);
+    PageUtils<JournalEntity> queryTerm(Map<String, Object> params);
 
     /**
-     * 测试
+     * 保存杂志信息
      *
-     * @param title
+     * @param entity
      * @return
      */
-    JournalEntity queryByTitle(String title);
+    Boolean save(JournalEntity entity);
 
     /**
-     * 保存
+     * 更新杂志信息
      *
-     * @param journalEntity
+     * @param entity
      * @return
      */
-    Boolean save(JournalEntity journalEntity);
+    Boolean replace(JournalEntity entity);
+
+    /**
+     * 审核或取消审核
+     *
+     * @param id
+     * @return
+     */
+    Boolean setOnline(Long id);
 }

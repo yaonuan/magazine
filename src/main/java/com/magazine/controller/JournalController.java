@@ -23,7 +23,7 @@ import java.util.Map;
 public class JournalController {
 
     @Autowired
-    JournalService journalService;
+    JournalService service;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -35,7 +35,7 @@ public class JournalController {
      */
     @GetMapping("/query_id/{id}")
     public R queryById(@PathVariable Integer id) {
-        JournalEntity journalEntity = journalService.selectById(id);
+        JournalEntity journalEntity = service.selectById(id);
         return R.ok().put("data", journalEntity);
     }
 
@@ -47,7 +47,7 @@ public class JournalController {
      */
     @GetMapping("/page")
     public R page(@RequestParam Map<String, Object> params) {
-        PageUtils page = journalService.queryTerm(params);
+        PageUtils page = service.queryTerm(params);
         return R.ok().put("data", page);
     }
 
@@ -59,7 +59,32 @@ public class JournalController {
      */
     @PostMapping("/save")
     public R save(@RequestBody JournalEntity journalEntity) {
+        service.save(journalEntity);
+        return R.ok();
+    }
 
+    /**
+     * 更新杂志信息
+     *
+     * @param journalEntity
+     * @return
+     */
+    @PostMapping("/update")
+    public R update(@RequestBody JournalEntity journalEntity) {
+        service.replace(journalEntity);
+        return R.ok();
+    }
+
+
+    /**
+     * 审核或取消审核
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("set_online")
+    public R setOnline(@RequestParam Long id) {
+        service.setOnline(id);
         return R.ok();
     }
 

@@ -23,7 +23,7 @@ public class JournalOrderEntity implements Serializable {
    * id
    */
   @TableId
-  private Integer id;
+  private Long id;
   /**
    * openid备用
    */
@@ -44,7 +44,7 @@ public class JournalOrderEntity implements Serializable {
   /**
    * 杂志主键
    */
-  private Integer journalId;
+  private Long journalId;
   /**
    * 杂志名称
    */
@@ -56,7 +56,7 @@ public class JournalOrderEntity implements Serializable {
   /**
    * 用户id
    */
-  private Integer userId;
+  private Long userId;
   /**
    * 用户ip地址
    */

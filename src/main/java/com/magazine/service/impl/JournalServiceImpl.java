@@ -11,6 +11,7 @@ import com.magazine.utils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -27,19 +28,26 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
     JournalMapper journalMapper;
 
     @Override
-    public PageUtils queryTerm(Map<String, Object> params) {
+    public PageUtils<JournalEntity> queryTerm(Map<String, Object> params) {
         Page<JournalEntity> page = this.selectPage(new Query<JournalEntity>(params).getPage(),
-                new EntityWrapper<JournalEntity>().eq("online", 0));
+                new EntityWrapper<>());
         return new PageUtils(page);
     }
 
     @Override
-    public JournalEntity queryByTitle(String title) {
-        return journalMapper.queryByTitle(title);
+    public Boolean save(JournalEntity entity) {
+        entity.setCreateTime(new Date());
+        return this.insert(entity);
     }
 
     @Override
-    public Boolean save(JournalEntity journalEntity) {
+    public Boolean replace(JournalEntity entity) {
+        return this.updateById(entity);
+    }
+
+    @Override
+    public Boolean setOnline(Long id) {
+
 
         return null;
     }
