@@ -30,10 +30,17 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
     JournalMapper journalMapper;
 
     @Override
-    public PageUtils<JournalEntity> queryTerm(Map<String, Object> params) {
+    public PageUtils<JournalEntity> queryAdminTerm(Map<String, Object> params) {
         Page<JournalEntity> page = this.selectPage(new Query<JournalEntity>(params).getPage(),
                 new EntityWrapper<>());
         return new PageUtils(page);
+    }
+
+    @Override
+    public PageUtils<JournalEntity> queryTerm(Map<String, Object> params) {
+        Page<JournalEntity> page = this.selectPage(new Query<JournalEntity>(params).getPage(),
+                new EntityWrapper<JournalEntity>().eq("online", MagazineConstant.TRUE));
+        return null;
     }
 
     @Override
@@ -51,9 +58,9 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
     public Boolean setOnline(Long id) {
         JournalEntity entity = new JournalEntity();
         entity.setId(id);
-        if (MagazineConstant.FALSE.equals(this.selectById(id).getOnline())){
+        if (MagazineConstant.FALSE.equals(this.selectById(id).getOnline())) {
             entity.setOnline(MagazineConstant.TRUE);
-        }else {
+        } else {
             entity.setOnline(MagazineConstant.FALSE);
         }
         return this.updateById(entity);

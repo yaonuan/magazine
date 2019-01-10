@@ -66,6 +66,6 @@ public class JournalOrderEntity implements Serializable {
     /**
      * 状态（0表示未删除，1表示已经删除）
      */
-    private Integer del;
+    private Integer isDeleted;
 
 }

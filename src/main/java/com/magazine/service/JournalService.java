@@ -10,6 +10,14 @@ import java.util.Set;
 public interface JournalService extends IService<JournalEntity> {
 
     /**
+     * 管理员分页查询
+     *
+     * @param params
+     * @return
+     */
+    PageUtils<JournalEntity> queryAdminTerm(Map<String, Object> params);
+
+    /**
      * 分页查询
      *
      * @param params
