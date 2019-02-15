@@ -25,7 +25,7 @@ import java.util.Date;
 public class CaptchaServiceImpl extends ServiceImpl<CaptchaMapper, CaptchaEntity> implements CaptchaService {
 
     @Autowired
-    Producer producer;
+    private Producer producer;
 
     @Override
     public BufferedImage getCaptcha(String uuid) {

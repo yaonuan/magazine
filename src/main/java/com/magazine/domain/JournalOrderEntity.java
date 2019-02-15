@@ -67,5 +67,9 @@ public class JournalOrderEntity implements Serializable {
      * 状态（0表示未删除，1表示已经删除）
      */
     private Integer isDeleted;
+    /**
+     * 支付状态(0表示未支付，1表示已支付)
+     */
+    private Integer state;
 
 }

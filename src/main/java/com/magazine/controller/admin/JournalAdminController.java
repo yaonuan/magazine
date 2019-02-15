@@ -24,7 +24,7 @@ import java.util.Set;
 public class JournalAdminController {
 
     @Autowired
-    JournalService service;
+    private JournalService service;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 

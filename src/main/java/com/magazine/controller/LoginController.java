@@ -35,13 +35,13 @@ import java.util.Map;
 public class LoginController {
 
     @Autowired
-    CaptchaService captchaService;
+    private CaptchaService captchaService;
 
     @Autowired
-    UserService userService;
+     private UserService userService;
 
     @Autowired
-    UserTokenService userTokenService;
+    private UserTokenService userTokenService;
 
     /**
      * 验证码

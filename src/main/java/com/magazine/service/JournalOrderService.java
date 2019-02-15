@@ -19,12 +19,12 @@ public interface JournalOrderService extends IService<JournalOrderEntity> {
     Boolean saveOrder(Long journalId, HttpServletRequest request);
 
     /**
-     * 根据用户id查询该用户订阅的信息
+     * 我的订阅的信息
      *
      * @param userId
      * @return
      */
-    PageUtils<JournalOrderEntity> queryByUserId(Map<String, Object> params,Long userId);
+    PageUtils<JournalOrderEntity> queryByUserId(Map<String, Object> params, Long userId);
 
     /**
      * 根据条件查询订单信息
@@ -33,4 +33,5 @@ public interface JournalOrderService extends IService<JournalOrderEntity> {
      * @return
      */
     PageUtils<JournalOrderEntity> queryByOther(Map<String, Object> params);
+
 }

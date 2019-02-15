@@ -27,7 +27,7 @@ import java.util.Set;
 public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity> implements JournalService {
 
     @Autowired
-    JournalMapper journalMapper;
+    private JournalMapper journalMapper;
 
     @Override
     public PageUtils<JournalEntity> queryAdminTerm(Map<String, Object> params) {

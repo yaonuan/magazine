@@ -23,14 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 public class JournalOrderAdminController {
 
     @Autowired
-    JournalOrderService service;
+    private JournalOrderService service;
 
     @GetMapping("/add")
     public R saveOrder(@RequestParam(value = "journalId", required = true) Long id, HttpServletRequest request, HttpServletResponse response) {
-
         service.saveOrder(id, request);
-
-
         return R.ok();
     }
 

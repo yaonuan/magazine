@@ -23,7 +23,7 @@ import java.util.Map;
 public class JournalController {
 
     @Autowired
-    JournalService service;
+    private JournalService service;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 

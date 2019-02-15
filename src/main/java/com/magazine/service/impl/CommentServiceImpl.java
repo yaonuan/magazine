@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    CommentMapper commentMapper;
+    private CommentMapper commentMapper;
 
     @Override
     public CommentEntity queryOne(CommentEntity commentEntity){

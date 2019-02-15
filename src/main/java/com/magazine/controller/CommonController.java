@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 public class CommonController {
 
     @Autowired
-    AliyunOSSUtil aliyunOSSUtil;
+    private AliyunOSSUtil aliyunOSSUtil;
 
     @RequestMapping("/save_file")
     public String saveFile(@RequestParam("file") MultipartFile file) {

@@ -24,7 +24,7 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public UserEntity queryByUserName(String name) {
