@@ -1,14 +1,10 @@
 package com.magazine.controller;
 
-import com.magazine.utils.AliyunOSSUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import javax.annotation.Resource;
 
 /**
  * 测试类
@@ -19,5 +15,19 @@ import java.io.FileOutputStream;
  */
 @RestController
 public class TestController {
+
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    @GetMapping("/redis/setAndGet")
+    public String setAndGetValue(String name, String value) {
+        redisTemplate.opsForValue().set(name, value);
+        return (String) redisTemplate.opsForValue().get(name);
+    }
+
+    @GetMapping("/redis/get")
+    public String getValue(String name){
+        return (String) redisTemplate.opsForValue().get(name);
+    }
 
 }
