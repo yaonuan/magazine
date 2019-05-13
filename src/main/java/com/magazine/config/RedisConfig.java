@@ -30,7 +30,6 @@ import java.util.Map;
  * @Date : 2019-02-18
  */
 @Configuration
-@EnableCaching
 public class RedisConfig {
 
     @Bean

@@ -22,8 +22,12 @@ public class RedisServiceImpl implements RedisService {
 
     private static double size = Math.pow(2, 32);
 
+    private final RedisTemplate redisTemplate;
+
     @Autowired
-    private RedisTemplate redisTemplate;
+    public RedisServiceImpl(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Override
     public boolean setBit(String key, long offset, boolean isShow) {
@@ -99,6 +103,14 @@ public class RedisServiceImpl implements RedisService {
      */
     public boolean exists(final String key) {
         return redisTemplate.hasKey(key);
+    }
+
+    @Override
+    public Object genValue(final String key) {
+        Object result = null;
+        ValueOperations<String, String> operations = redisTemplate.opsForValue();
+        result = operations.get(key);
+        return result;
     }
 
     @Override

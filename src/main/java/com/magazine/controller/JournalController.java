@@ -7,6 +7,8 @@ import com.magazine.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,6 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/v1/journal")
+@CacheConfig(cacheNames = "test")
 public class JournalController {
 
     @Autowired
@@ -34,6 +37,7 @@ public class JournalController {
      * @return
      */
     @GetMapping("/query_id/{id}")
+    @Cacheable(key = "#p0")
     public R queryById(@PathVariable Integer id) {
         JournalEntity journalEntity = service.selectById(id);
         return R.ok().put("data", journalEntity);

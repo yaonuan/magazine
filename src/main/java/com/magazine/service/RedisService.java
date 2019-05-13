@@ -65,6 +65,14 @@ public interface RedisService {
      * @param key
      * @return
      */
+    Object genValue(String key);
+
+    /**
+     * 读取缓存
+     *
+     * @param key
+     * @return
+     */
     Object get(String key);
 
     /**
@@ -144,15 +152,60 @@ public interface RedisService {
     //第一次加载的时候将数据加载到redis中
     boolean getDataToRedis(String name);
 
+    /**
+     * 有序集合获取排名
+     *
+     * @param key   集合名称
+     * @param value 值
+     * @return
+     */
     Long zRank(String key, Object value);
 
+    /**
+     * 有序集合获取排名
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
     Set<ZSetOperations.TypedTuple<Object>> zRankWithScore(String key, long start, long end);
 
+    /**
+     * 有序集合添加
+     *
+     * @param key
+     * @param value
+     * @return
+     */
     Double zSetScore(String key, Object value);
 
+    /**
+     * 有序集合添加分数
+     *
+     * @param key
+     * @param value
+     * @param scoure
+     */
     void incrementScore(String key, Object value, double scoure);
 
+    /**
+     * 有序集合获取排名
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
     Set<ZSetOperations.TypedTuple<Object>> reverseZRankWithScore(String key, long start, long end);
 
+    /**
+     * 有序集合获取排名
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
     Set<ZSetOperations.TypedTuple<Object>> reverseZRankWithRank(String key, long start, long end);
 }

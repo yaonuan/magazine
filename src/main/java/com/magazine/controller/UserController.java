@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * 用户控制层
  *
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private static final String key = "userCache_";
-    @Autowired
+    @Resource
     private UserService userService;
     @Autowired
     private RedisService redisService;
