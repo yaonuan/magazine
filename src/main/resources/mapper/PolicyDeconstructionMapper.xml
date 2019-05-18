@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magazine.deconstruct.PolicyDeconstructionMapper">
+
+	<resultMap id="BaseMap" type="com.magazine.deconstruct.PolicyDeconstruction">
+		<id column="policy_id" property="policyId"/>
+		<result column="policy_title" property="policyTitle"/>
+		<result column="verbs" property="verbs"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		policy_id,policy_title,verbs
+	</sql>
+
+	<select id="selectByPolicyId" resultMap="BaseMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM policy_deconstruction
+		WHERE policy_id = #{policyId}
+	</select>
+
+	<select id="selectByPolicyIds" resultMap="BaseMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM policy_deconstruction
+		WHERE policy_id IN
+		<foreach item="id" collection="policyIds" open="("
+				 separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!-- 根据用户给定的ids 查询存在的id-->
+	<select id="selectIdByPolicyIds" resultType="java.lang.Long">
+		SELECT policy_id FROM policy_deconstruction WHERE policy_id IN
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magazine.mapper.ScrapyGovPolicyMapper">
+
+    <resultMap id="BaseMap" type="com.magazine.domain.ScrapyGovPolicyEntity">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="text" property="text"/>
+    </resultMap>
+
+    <select id="queryList" resultMap="BaseMap">
+        SELECT id,title,text FROM scrapy_gov_policy
+    </select>
+
+
+</mapper>

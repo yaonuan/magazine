@@ -37,7 +37,7 @@ public class LockNxExJob {
         this.redisService = redisService;
     }
 
-    @Scheduled(cron = "1/10 * * * * *")
+//    @Scheduled(cron = "1/10 * * * * *")
     public void lock(){
         String lock  = LOCK_PREFIX + "LockNxExJob";
         boolean nxRet = false;

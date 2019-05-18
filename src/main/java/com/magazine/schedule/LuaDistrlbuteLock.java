@@ -43,7 +43,7 @@ public class LuaDistrlbuteLock {
 
     private DefaultRedisScript<Boolean> lockScript;
 
-    @Scheduled(cron = "0/5 * * * * *")
+//    @Scheduled(cron = "0/5 * * * * *")
     public void lockJob(){
         String lock = LOCK_PREFIX + "LockNxExJob";
 
