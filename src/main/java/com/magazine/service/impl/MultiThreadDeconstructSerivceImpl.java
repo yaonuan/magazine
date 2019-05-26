@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @Author : yaonuan
@@ -46,35 +43,44 @@ public class MultiThreadDeconstructSerivceImpl implements MultiThreadDeconstruct
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 4, 3L, TimeUnit.SECONDS, objects);
         threadPoolExecutor.prestartAllCoreThreads();
 
+        Future<String> submit = null;
         for (ScrapyGovPolicyEntity entity : list) {
             final ScrapyGovPolicyEntity general = entity;
-            Future<?> submit = threadPoolExecutor.submit(() -> {
-//                byte[] bytes = new byte[0];
-//                ArrayList<String> vlist = analyseDeconstruction.paragraph_analyse(general.getText());
-//                try {
-//                    bytes = SerializeUtils.serializeObject(vlist);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                PolicyDeconstruction deconstruction = new PolicyDeconstruction();
-//                deconstruction.setVerbs(bytes);
-//                deconstruction.setPolicyId(Long.valueOf(general.getId()));
-//                deconstruction.setPolicyTitle(general.getTitle().trim());
-//                System.out.println("线程名称：" + Thread.currentThread().getName() + "处理政策数据的id：" + general.getTitle());
-//                // 判断数据库中是否已经存在
-//                if (deconstructionMapper.selectByPolicyId(deconstruction.getPolicyId()) == null) {
-//                    deconstructionMapper.insert(deconstruction);
-//                }
+             submit = threadPoolExecutor.submit(() -> {
+                byte[] bytes = new byte[0];
+                ArrayList<String> vlist = analyseDeconstruction.paragraph_analyse(general.getText());
                 try {
-                    Thread.sleep(2000L);
-                } catch (InterruptedException e) {
+                    bytes = SerializeUtils.serializeObject(vlist);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName() + ":" + general.getTitle());
+                PolicyDeconstruction deconstruction = new PolicyDeconstruction();
+                deconstruction.setVerbs(bytes);
+                deconstruction.setPolicyId(Long.valueOf(general.getId()));
+                deconstruction.setPolicyTitle(general.getTitle().trim());
+                System.out.println("线程名称：" + Thread.currentThread().getName() + "处理政策数据的id：" + general.getTitle());
+                // 判断数据库中是否已经存在
+                if (deconstructionMapper.selectByPolicyId(deconstruction.getPolicyId()) == null) {
+                    deconstructionMapper.insert(deconstruction);
+                }
+//                System.out.println(Thread.currentThread().getName() + ":" + general.getTitle());
+                 return Thread.currentThread().getName() + ":" + general.getTitle();
             });
-
         }
+//        for (ScrapyGovPolicyEntity entity : list){
+//            try {
+//                String s = submit.get();
+//                System.out.println(s);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+
+
 
         return false;
-    }
+        }
 }
