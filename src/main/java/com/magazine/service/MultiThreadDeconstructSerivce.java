@@ -1,5 +1,9 @@
 package com.magazine.service;
 
+import com.magazine.domain.ScrapyGovPolicyEntity;
+
+import java.util.List;
+
 /**
  * @Author : yaonuan
  * @Email : 806039077@qq.com
@@ -7,6 +11,11 @@ package com.magazine.service;
  */
 public interface MultiThreadDeconstructSerivce {
 
-    boolean test();
-
+    /**
+     * 多线程解构
+     *
+     * @param list
+     * @return
+     */
+    boolean multiDeconstruct(List<ScrapyGovPolicyEntity> list);
 }

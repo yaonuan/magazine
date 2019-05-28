@@ -39,5 +39,9 @@
 		</foreach>
 	</select>
 
+	<select id="queryAllId" resultType="java.lang.Long">
+		select policy_id from policy_deconstruction
+	</select>
+
 
 </mapper>

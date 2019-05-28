@@ -16,28 +16,35 @@ import java.util.List;
 @Mapper
 public interface PolicyDeconstructionMapper extends BaseMapper<PolicyDeconstruction> {
 
-	/**
-	 * 根据policy_id查询政策实体
-	 *
-	 * @param policyId
-	 * @return
-	 */
-	PolicyDeconstruction selectByPolicyId(@Param("policyId") Long policyId);
+    /**
+     * 根据policy_id查询政策实体
+     *
+     * @param policyId
+     * @return
+     */
+    PolicyDeconstruction selectByPolicyId(@Param("policyId") Long policyId);
 
-	/**
-	 * 根据policy_ids查询政策实体
-	 *
-	 * @param policyIds
-	 * @return
-	 */
-	List<PolicyDeconstruction> selectByPolicyIds(@Param("policyIds") List<Long> policyIds);
+    /**
+     * 根据policy_ids查询政策实体
+     *
+     * @param policyIds
+     * @return
+     */
+    List<PolicyDeconstruction> selectByPolicyIds(@Param("policyIds") List<Long> policyIds);
 
-	/**
-	 * 根据ids查询存在的id
-	 *
-	 * @param ids
-	 * @return
-	 */
-	List<Long> selectIdByPolicyIds(@Param("ids") List<Long> ids);
+    /**
+     * 根据ids查询存在的id
+     *
+     * @param ids
+     * @return
+     */
+    List<Long> selectIdByPolicyIds(@Param("ids") List<Long> ids);
+
+    /**
+     * 获取所有id
+     *
+     * @return
+     */
+    List<Long> queryAllId();
 
 }

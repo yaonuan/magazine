@@ -36,51 +36,55 @@ public class MultiThreadDeconstructSerivceImpl implements MultiThreadDeconstruct
 
 
     @Override
-    public boolean test() {
-        List<ScrapyGovPolicyEntity> list = scrapyGovPolicyService.queryList();
-
+    public boolean multiDeconstruct(List<ScrapyGovPolicyEntity> list) {
+//        List<ScrapyGovPolicyEntity> list = scrapyGovPolicyService.queryList();
         LinkedBlockingQueue<Runnable> objects = new LinkedBlockingQueue<>();
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 4, 3L, TimeUnit.SECONDS, objects);
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(6, 6, 300L, TimeUnit.MINUTES, objects);
         threadPoolExecutor.prestartAllCoreThreads();
 
-        Future<String> submit = null;
-        for (ScrapyGovPolicyEntity entity : list) {
-            final ScrapyGovPolicyEntity general = entity;
-             submit = threadPoolExecutor.submit(() -> {
-                byte[] bytes = new byte[0];
-                ArrayList<String> vlist = analyseDeconstruction.paragraph_analyse(general.getText());
-                try {
-                    bytes = SerializeUtils.serializeObject(vlist);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                PolicyDeconstruction deconstruction = new PolicyDeconstruction();
-                deconstruction.setVerbs(bytes);
-                deconstruction.setPolicyId(Long.valueOf(general.getId()));
-                deconstruction.setPolicyTitle(general.getTitle().trim());
-                System.out.println("线程名称：" + Thread.currentThread().getName() + "处理政策数据的id：" + general.getTitle());
-                // 判断数据库中是否已经存在
-                if (deconstructionMapper.selectByPolicyId(deconstruction.getPolicyId()) == null) {
-                    deconstructionMapper.insert(deconstruction);
-                }
-//                System.out.println(Thread.currentThread().getName() + ":" + general.getTitle());
-                 return Thread.currentThread().getName() + ":" + general.getTitle();
-            });
+        List<Future<String>> submits = new ArrayList<>();
+        try {
+            for (ScrapyGovPolicyEntity general : list) {
+
+                Callable callable = new Callable() {
+                    @Override
+                    public Object call() throws Exception {
+                        byte[] bytes = new byte[0];
+                        ArrayList<String> vlist = analyseDeconstruction.paragraph_analyse(general.getText());
+                        try {
+                            bytes = SerializeUtils.serializeObject(vlist);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        PolicyDeconstruction deconstruction = new PolicyDeconstruction();
+                        deconstruction.setVerbs(bytes);
+                        deconstruction.setPolicyId(Long.valueOf(general.getId()));
+                        deconstruction.setPolicyTitle(general.getTitle().trim());
+                        //                System.out.println("线程名称：" + Thread.currentThread().getName() + "处理政策数据的id：" + general.getTitle());
+                        // 判断数据库中是否已经存在
+                        if (deconstructionMapper.selectByPolicyId(deconstruction.getPolicyId()) == null) {
+                            deconstructionMapper.insert(deconstruction);
+                        }
+                        //                System.out.println(Thread.currentThread().getName() + ":" + general.getTitle());
+                        return Thread.currentThread().getName() + ":" + general.getTitle();
+                    }
+                };
+                Future<String> submit = threadPoolExecutor.submit(callable);
+                submits.add(submit);
+            }
+        } finally {
+            threadPoolExecutor.shutdown();
         }
-//        for (ScrapyGovPolicyEntity entity : list){
-//            try {
-//                String s = submit.get();
-//                System.out.println(s);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
-
-
-        return false;
+        for (Future<String> sub : submits){
+            try {
+                String s = sub.get();
+                System.out.println(s);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
         }
 }
