@@ -18,4 +18,11 @@ public interface MultiThreadDeconstructSerivce {
      * @return
      */
     boolean multiDeconstruct(List<ScrapyGovPolicyEntity> list);
+
+    /**
+     * 单例任务
+     *
+     * @param list
+     */
+    void singleDeconstruct(List<ScrapyGovPolicyEntity> list);
 }

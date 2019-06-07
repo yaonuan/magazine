@@ -39,7 +39,7 @@ public class MultiThreadDeconstructSerivceImpl implements MultiThreadDeconstruct
     public boolean multiDeconstruct(List<ScrapyGovPolicyEntity> list) {
 //        List<ScrapyGovPolicyEntity> list = scrapyGovPolicyService.queryList();
         LinkedBlockingQueue<Runnable> objects = new LinkedBlockingQueue<>();
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(6, 6, 300L, TimeUnit.MINUTES, objects);
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(6, 6, 0L, TimeUnit.MINUTES, objects);
         threadPoolExecutor.prestartAllCoreThreads();
 
         List<Future<String>> submits = new ArrayList<>();
@@ -75,7 +75,7 @@ public class MultiThreadDeconstructSerivceImpl implements MultiThreadDeconstruct
         } finally {
             threadPoolExecutor.shutdown();
         }
-        for (Future<String> sub : submits){
+        for (Future<String> sub : submits) {
             try {
                 String s = sub.get();
                 System.out.println(s);
@@ -86,5 +86,27 @@ public class MultiThreadDeconstructSerivceImpl implements MultiThreadDeconstruct
             }
         }
         return true;
+    }
+
+    @Override
+    public void singleDeconstruct(List<ScrapyGovPolicyEntity> list) {
+        for (ScrapyGovPolicyEntity general : list) {
+            byte[] bytes = new byte[0];
+            ArrayList<String> vlist = analyseDeconstruction.paragraph_analyse(general.getText());
+            System.out.println(general.getId() + vlist.toString());
+            try {
+                bytes = SerializeUtils.serializeObject(vlist);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            PolicyDeconstruction deconstruction = new PolicyDeconstruction();
+            deconstruction.setVerbs(bytes);
+            deconstruction.setPolicyId(Long.valueOf(general.getId()));
+            deconstruction.setPolicyTitle(general.getTitle().trim());
+            // 判断数据库中是否已经存在
+            if (deconstructionMapper.selectByPolicyId(deconstruction.getPolicyId()) == null) {
+                deconstructionMapper.insert(deconstruction);
+            }
         }
+    }
 }

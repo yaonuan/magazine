@@ -32,16 +32,19 @@ public class RealComparisonDeconstructImpl implements RealComparisonDeconstruct 
         // 获取所有数据
         QryBusi qryBusi = new QryBusiImpl();
         List<Long> ids = qryBusi.selectPolicyId();
-        List<List<Long>> batchPart = batchPart(ids, 2000);
-        for (List<Long> list : batchPart) {
+        List<Long> allId = deconstructionMapper.queryAllId();
+        List<Long> longList = getDifferent(ids, allId);
+//        List<List<Long>> batchPart = batchPart(ids, 2000);
+        List<List<Long>> batchPart = batchPart(longList, 20);
+        for (List<Long> different : batchPart) {
             // 获取已解构的数据
-            List<Long> allId = deconstructionMapper.queryAllId();
             // 查询list中与allId不同的部分
-            List<Long> different = getDifferent(list, allId);
+//            List<Long> different = getDifferent(list, allId);
             if (different != null && different.size() > 0) {
                 List<ScrapyGovPolicyEntity> policyEntityList = qryBusi.queryByIds(different);
                 if (policyEntityList != null && policyEntityList.size() > 0) {
                     multiThreadDeconstruct.multiDeconstruct(policyEntityList);
+//                    multiThreadDeconstruct.singleDeconstruct(policyEntityList);
                 }
             }
         }
