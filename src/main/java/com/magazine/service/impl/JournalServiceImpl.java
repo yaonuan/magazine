@@ -11,6 +11,7 @@ import com.magazine.utils.PageUtils;
 import com.magazine.utils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.font.TextRecord;
 
 import java.util.Date;
 import java.util.Map;
@@ -46,7 +47,10 @@ public class JournalServiceImpl extends ServiceImpl<JournalMapper, JournalEntity
     @Override
     public Boolean save(JournalEntity entity) {
         entity.setCreateTime(new Date());
-        return this.insert(entity);
+        this.insert(entity);
+//        return this.insert(entity);
+        System.out.println(entity);
+        return true;
     }
 
     @Override

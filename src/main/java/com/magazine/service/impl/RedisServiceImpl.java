@@ -68,6 +68,19 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public boolean decr(final String key, Integer value) {
+        boolean result = false;
+        try {
+            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            operations.increment(key, -value);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public boolean set(final String key, Object value, Long expireTime) {
         boolean result = false;
         try {
@@ -116,9 +129,14 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public Object get(final String key) {
         Object result = null;
-        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
-        result = operations.get(key);
-        return result;
+        try {
+            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            result = operations.get(key);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

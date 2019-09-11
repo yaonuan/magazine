@@ -67,8 +67,10 @@ public class LuaDistrlbuteLock {
 
         } finally {
             if (luaRet) {
-                //logger.info("release lock success");
-                redisService.remove(lock);
+                logger.info("release lock success");
+//                redisService.remove(lock);
+                Boolean unlock = unlock(lock, getHostIp());
+                System.out.println(unlock);
             }
         }
     }
@@ -92,6 +94,19 @@ public class LuaDistrlbuteLock {
         return result;
     }
 
+
+    public Boolean unlock(String key, String value) {
+        lockScript = new DefaultRedisScript<Boolean>();
+        lockScript.setScriptSource(
+                new ResourceScriptSource(new ClassPathResource("unlock.lua")));
+        lockScript.setResultType(Boolean.class);
+        // 封装参数
+        List<Object> keyList = new ArrayList<Object>();
+        keyList.add(key);
+        keyList.add(value);
+        Boolean result = (Boolean) redisTemplate.execute(lockScript, keyList);
+        return result;
+    }
 
     /**
      * 获取本机内网IP地址方法

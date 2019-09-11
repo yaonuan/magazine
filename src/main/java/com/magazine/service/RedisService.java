@@ -35,6 +35,8 @@ public interface RedisService {
      */
     boolean set(String key, Object value);
 
+    boolean decr(String key, Integer value);
+
     /**
      * 写入缓存设置时效时间
      *

@@ -51,7 +51,10 @@ public class JournalOrderServiceImpl extends ServiceImpl<JournalOrderMapper, Jou
         // todo 支付状态后期v1.2开发
         entity.setState(MagazineConstant.FALSE);
         entity.setUserId(userId);
-        return this.insert(entity);
+        this.insert(entity);
+        System.out.println(entity);
+//        return this.insert(entity);
+        return true;
     }
 
     @Override

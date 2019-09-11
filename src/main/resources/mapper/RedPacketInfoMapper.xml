@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magazine.red_packet.mapper.RedPacketInfoMapper">
+
+
+    <resultMap id="base_result_map" type="com.magazine.red_packet.entity.RedPacketInfo">
+        <id column="id" property="id"/>
+        <result column="redPacketId" property="red_packet_id"/>
+        <result column="totalAmount" property="total_amount"/>
+        <result column="totalPacket" property="total_packet"/>
+        <result column="remainingAmount" property="remaining_amount"/>
+        <result column="remainingPacket" property="remaining_packet"/>
+    </resultMap>
+
+    <sql id="sqlColumn">
+        id,
+        red_packet_id,
+        total_amount,
+        total_packet,
+        remaining_amount,
+        remaining_packet
+    </sql>
+    
+    <select id="selectByRedPacketId">
+      SELECT
+      <include refid="sqlColumn"/>
+      FROM red_packet_info 
+      WHERE red_packet_id = #{redPacketId}
+    </select>
+</mapper>
