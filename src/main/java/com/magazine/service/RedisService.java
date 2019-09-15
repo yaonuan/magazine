@@ -210,4 +210,8 @@ public interface RedisService {
      * @return
      */
     Set<ZSetOperations.TypedTuple<Object>> reverseZRankWithRank(String key, long start, long end);
+
+    Boolean bloomFilterAdd(int value);
+
+    Boolean bloomFilterExists(int value);
 }

@@ -2,10 +2,15 @@ package com.magazine.service.impl;
 
 import com.magazine.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Service;
+import sun.jvm.hotspot.utilities.soql.DefaultScriptObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +28,8 @@ public class RedisServiceImpl implements RedisService {
     private static double size = Math.pow(2, 32);
 
     private final RedisTemplate redisTemplate;
+
+    private static final String bloomFilterName = "isVipBloom";
 
     @Autowired
     public RedisServiceImpl(RedisTemplate redisTemplate) {
@@ -281,4 +288,27 @@ public class RedisServiceImpl implements RedisService {
         return ret;
     }
 
+    @Override
+    public Boolean bloomFilterAdd(int value) {
+        DefaultRedisScript<Boolean> booleanAdd = new DefaultRedisScript<>();
+        booleanAdd.setScriptSource(new ResourceScriptSource(new ClassPathResource("bloomFilterAdd.lua")));
+        booleanAdd.setResultType(Boolean.class);
+        List<Object> keyList = new ArrayList<>();
+        keyList.add(bloomFilterName);
+        keyList.add(value + "");
+        Boolean result = (Boolean) redisTemplate.execute(booleanAdd, keyList);
+        return result;
+    }
+
+    @Override
+    public Boolean bloomFilterExists(int value) {
+        DefaultRedisScript<Boolean> booleanExists = new DefaultRedisScript<>();
+        booleanExists.setScriptSource(new ResourceScriptSource(new ClassPathResource("bloomFilterExists.lua")));
+        booleanExists.setResultType(Boolean.class);
+        List<Object> keyList = new ArrayList<>();
+        keyList.add(bloomFilterName);
+        keyList.add(value + "");
+        Boolean result = (Boolean) redisTemplate.execute(booleanExists, keyList);
+        return result;
+    }
 }
