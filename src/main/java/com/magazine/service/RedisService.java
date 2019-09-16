@@ -35,7 +35,23 @@ public interface RedisService {
      */
     boolean set(String key, Object value);
 
+    /**
+     * 原子减
+     *
+     * @param key   redis key值
+     * @param value 原子减的量
+     * @return
+     */
     boolean decr(String key, Integer value);
+
+    /**
+     * 原子加
+     *
+     * @param key   redis key值
+     * @param value 原子加的数量
+     * @return
+     */
+    boolean incr(String key, Integer value);
 
     /**
      * 写入缓存设置时效时间
@@ -211,7 +227,9 @@ public interface RedisService {
      */
     Set<ZSetOperations.TypedTuple<Object>> reverseZRankWithRank(String key, long start, long end);
 
-    Boolean bloomFilterAdd(int value);
+    Boolean bloomFilterAdd(String bloomFilterName, int value);
 
-    Boolean bloomFilterExists(int value);
+    Boolean bloomFilterExists(String bloomFilterName, int value);
+
+    Boolean getAndIncrLua(String key);
 }

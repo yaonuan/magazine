@@ -29,7 +29,7 @@ public class RedisServiceImpl implements RedisService {
 
     private final RedisTemplate redisTemplate;
 
-    private static final String bloomFilterName = "isVipBloom";
+//    private static final String bloomFilterName = "isVipBloom";
 
     @Autowired
     public RedisServiceImpl(RedisTemplate redisTemplate) {
@@ -80,6 +80,19 @@ public class RedisServiceImpl implements RedisService {
         try {
             ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
             operations.increment(key, -value);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean incr(final String key, Integer value) {
+        boolean result = false;
+        try {
+            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            operations.increment(key, value);
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,7 +302,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Boolean bloomFilterAdd(int value) {
+    public Boolean bloomFilterAdd(String bloomFilterName,int value) {
         DefaultRedisScript<Boolean> booleanAdd = new DefaultRedisScript<>();
         booleanAdd.setScriptSource(new ResourceScriptSource(new ClassPathResource("bloomFilterAdd.lua")));
         booleanAdd.setResultType(Boolean.class);
@@ -301,13 +314,24 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Boolean bloomFilterExists(int value) {
+    public Boolean bloomFilterExists(String bloomFilterName,int value) {
         DefaultRedisScript<Boolean> booleanExists = new DefaultRedisScript<>();
         booleanExists.setScriptSource(new ResourceScriptSource(new ClassPathResource("bloomFilterExists.lua")));
         booleanExists.setResultType(Boolean.class);
         List<Object> keyList = new ArrayList<>();
         keyList.add(bloomFilterName);
         keyList.add(value + "");
+        Boolean result = (Boolean) redisTemplate.execute(booleanExists, keyList);
+        return result;
+    }
+
+    @Override
+    public Boolean getAndIncrLua(String key) {
+        DefaultRedisScript<Boolean> booleanExists = new DefaultRedisScript<>();
+        booleanExists.setScriptSource(new ResourceScriptSource(new ClassPathResource("seckillincr.lua")));
+        booleanExists.setResultType(Boolean.class);
+        List<Object> keyList = new ArrayList<>();
+        keyList.add(key);
         Boolean result = (Boolean) redisTemplate.execute(booleanExists, keyList);
         return result;
     }

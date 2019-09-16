@@ -47,4 +47,9 @@ public class OtherTest {
 
     }
 
+    @Test
+    public void A(){
+        System.out.println(System.currentTimeMillis()/1000);
+    }
+
 }

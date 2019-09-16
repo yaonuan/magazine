@@ -29,12 +29,12 @@ public class BloomFilterController {
 
     @RequestMapping("/bloom/redisIdAdd")
     public boolean redisIdAdd(Integer id) {
-        return redisService.bloomFilterAdd(id);
+        return redisService.bloomFilterAdd("isVipBloom", id);
     }
 
     @RequestMapping("/bloom/redisIdExists")
     public boolean redisIdExists(Integer id) {
-        return redisService.bloomFilterExists(id);
+        return redisService.bloomFilterExists("isVipBloom", id);
     }
 
 }

@@ -27,7 +27,7 @@ public class BloomfilterServiceImpl implements BloomfilterService {
 
     private BloomFilter<Integer> bf;
 
-    @PostConstruct
+//    @PostConstruct
     public void initBloomFilter() {
         List<SysUser> userList = sysUserMapper.selectList(new EntityWrapper<>());
         if (CollectionUtils.isEmpty(userList)) {
