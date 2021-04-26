@@ -24,7 +24,7 @@
         <java.version>1.8</java.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.pool.version>2.6.0</commons.pool.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons.codec.version>1.10</commons.codec.version>
         <commons.configuration.version>1.10</commons.configuration.version>
         <mybatisplus.spring.boot.version>1.0.5</mybatisplus.spring.boot.version>
